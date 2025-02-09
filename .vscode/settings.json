@@ -1,0 +1,7 @@
+{
+  "rust-analyzer.linkedProjects": [
+    "./Cargo.toml",
+    "./crates/helloworld/Cargo.toml",
+    "./crates/illustrator-rs/Cargo.toml"
+  ]
+}
