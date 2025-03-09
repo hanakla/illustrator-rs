@@ -1,0 +1,16 @@
+[package]
+name = "illustrator-sys"
+version = "0.1.0"
+authors = ["Hanakla <hanakla.dev@gmail.com>"]
+license = "MIT"
+edition = "2021"
+build = "build.rs"
+
+[features]
+builtin_bindings = []
+
+[build-dependencies]
+bindgen = "0.71"
+glob = "0.3.2"
+wildcard = "0.3.0"
+regex = "1.11.1"

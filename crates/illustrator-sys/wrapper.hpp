@@ -1,4 +1,3 @@
-
 #include "SPConfig.h"
 
 // std library
@@ -66,3 +65,25 @@
 #include "AIArtboard.h"
 #include "AIUUID.h"
 #include "AILimits.h"
+
+extern "C" {
+    // SEE: AITypes.h, AIUser.h
+    #undef kAIUserSuiteVersion21
+    #undef kAIUserVersion
+    #undef kAIUserSuiteVersion
+
+    #ifdef LINUX_ENV
+    extern const int32_t kAIUserSuiteVersion21 = 21 + 2000;
+    #endif
+
+    #ifdef MAC_ENV
+    extern const int32_t kAIUserSuiteVersion21 = 21 + 1000;
+    #endif
+
+    #ifdef WIN_ENV
+    extern const int32_t kAIUserSuiteVersion21 = 21;
+    #endif
+
+    extern const int32_t kAIUserSuiteVersion = kAIUserSuiteVersion21;
+    extern const int32_t kAIUserVersion = kAIUserSuiteVersion;
+}

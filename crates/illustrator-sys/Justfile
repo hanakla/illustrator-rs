@@ -1,0 +1,20 @@
+set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
+
+PluginName       := "helloworld_plugin"
+BundleIdentifier := "com.adobe.illustrator.plugins.{{PluginName}}"
+BinaryName       := lowercase(PluginName)
+
+TargetDir := env_var_or_default("CARGO_TARGET_DIR", "target")
+export AISDK_ROOT := if env("AISDK_ROOT", "") == "" { justfile_directory() / "../../sdk" } else { env_var("AISDK_ROOT") }
+
+[windows]
+build:
+    cargo build
+    if (-not $env:NO_INSTALL) { \
+        Start-Process PowerShell -Verb runAs -ArgumentList "-command Copy-Item -Force '{{TargetDir}}\debug\{{BinaryName}}.dll' 'C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore\{{PluginName}}.aex'" \
+    }
+
+[macos]
+build profile:
+    cargo clean -p illustrator-rs
+    PLATFORM=macos AISDK_ROOT={{justfile_directory() / "../../sdk"}} cargo build --release -vv
